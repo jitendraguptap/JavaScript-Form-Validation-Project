@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation Project</title>
+    <style>
+        body {
+         
+            background-image:url("bg.jpg");
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color : #32a895;
+            max-width: 400px;
+            margin: 0 auto;
+           margin-top: 40px;
+            padding: 50px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            var nameInput = document.getElementById("name");
+            var emailInput = document.getElementById("email");
+            var phoneInput = document.getElementById("phone");
+            var passwordInput = document.getElementById("password");
+            var confirmPasswordInput = document.getElementById("confirmPassword");
+            var errorMessage = document.getElementById("error-message");
+
+             // Validate Name
+            if (nameInput.value.length < 5) {
+                errorMessage.innerHTML = "Name must be at least 5 characters long.";
+                return false;
+            }
+
+            // Validate Email
+            if (!emailInput.value.includes("@")) {
+                errorMessage.innerHTML = "Email must contain the @ character.";
+                return false;
+            }
+
+            // Validate Phone Number
+            if (phoneInput.value === "123456789" || phoneInput.value.length !== 10) {
+                errorMessage.innerHTML = "Invalid phone number.";
+                return false;
+            }
+
+            // Validate Password
+            if (
+                passwordInput.value === "password" ||
+                passwordInput.value === nameInput.value ||
+                passwordInput.value.length < 8
+            ) {
+                errorMessage.innerHTML = "Invalid password.";
+                return false;
+            }
+
+            // Validate Confirm Password
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                errorMessage.innerHTML = "Passwords do not match.";
+                return false;
+            }
+
+            errorMessage.innerHTML = ""; // Clear any previous error messages
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2 align="center">Form Validation</h2>
+        <form onsubmit="return validateForm();">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+            <span class="error-message" id="error-message"></span>
+
+            <input type="submit" value="Submit" id="submit">
+        </form>
+    </div>
+</body>
+</html>
